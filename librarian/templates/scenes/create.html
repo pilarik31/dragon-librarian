@@ -1,15 +1,19 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Nová scéna{% endblock %}</h1>
+<h1>{% block title %}Nová scéna{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="title">Název</label>
-    <input name="title" id="title" value="{{ request.form['title'] }}" required>
-    <label for="body">Obsah</label>
-    <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
-    <input type="submit" value="Save">
-  </form>
+<form method="post">
+    <div class="mb-3">
+        <label for="title" class="form-label">Název</label>
+        <input name="title" id="title" class="form-control" value="{{ request.form['title'] }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="body" class="form-label">Obsah</label>
+        <textarea name="body" id="body" class="form-control" rows="10">{{ request.form['body'] }}</textarea>
+    </div>
+    <input type="submit" value="Uložit" class="btn btn-success">
+</form>
 {% endblock %}

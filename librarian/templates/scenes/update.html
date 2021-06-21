@@ -1,20 +1,23 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Upravit "{{ scene['title'] }}"{% endblock %}</h1>
+<h1>{% block title %}Upravit "{{ scene['title'] }}"{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="title">Název</label>
-    <input name="title" id="title"
-      value="{{ request.form['title'] or scene['title'] }}" required>
-    <label for="body">Obsah</label>
-    <textarea name="body" id="body">{{ request.form['body'] or scene['body'] }}</textarea>
-    <input type="submit" value="Save">
-  </form>
-  <hr>
-  <form action="{{ url_for('scenes.delete', id=scene['id']) }}" method="post">
-    <input class="danger" type="submit" value="Delete" onclick="return confirm('Opravdu?');">
-  </form>
+<form method="post">
+    <div class="mb-3">
+        <label for="title" class="form-label">Název</label>
+        <input name="title" id="title" class="form-control" value="{{ request.form['title'] or scene['title'] }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="body" class="form-label">Obsah</label>
+        <textarea name="body" id="body" class="form-control" rows="10">{{ request.form['body'] or scene['body'] }}</textarea>
+    </div>
+    <input type="submit" value="Uložit" class="btn btn-success">
+</form>
+<hr>
+<form action="{{ url_for('scenes.delete', id=scene['id']) }}" method="post">
+    <input class="btn btn-danger" type="submit" value="Smazat" onclick="return confirm('Opravdu?');">
+</form>
 {% endblock %}

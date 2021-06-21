@@ -21,7 +21,7 @@ def index():
     ).fetchall()
     return render_template('scenes/index.html', scenes=scenes)
 
-
+# @TODO Save and continue editing button.
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
@@ -51,7 +51,7 @@ def create():
 @bp.route('/<int:id>/update', methods=('GET', 'POST'))
 @login_required
 def update(id):
-    scene = get_post(id)
+    scene = get_post(id, False)
 
     if request.method == 'POST':
         title = request.form['title']

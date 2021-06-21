@@ -6,10 +6,12 @@ from werkzeug.exceptions import abort
 from librarian.auth import login_required
 from librarian.db import get_db
 
+# @TODO Somehow make url_prefix '/scene'.
 bp = Blueprint('scenes', __name__)
 
 
 @bp.route('/')
+@login_required
 def index():
     db = get_db()
     scenes = db.execute(
@@ -44,23 +46,6 @@ def create():
             return redirect(url_for('scenes.index'))
 
     return render_template('scenes/create.html')
-
-
-def get_post(id, check_author=True):
-    scene = get_db().execute(
-        'SELECT s.id, title, body, created, user_id, username'
-        ' FROM scene s JOIN user u ON s.user_id = u.id'
-        ' WHERE s.id = ?',
-        (id,)
-    ).fetchone()
-
-    if scene is None:
-        abort(404, f"Scene id {id} doesn't exist.")
-
-    if check_author and scene['user_id'] != g.user['id']:
-        abort(403)
-
-    return scene
 
 
 @bp.route('/<int:id>/update', methods=('GET', 'POST'))
@@ -99,3 +84,20 @@ def delete(id):
     db.execute('DELETE FROM scene WHERE id = ?', (id,))
     db.commit()
     return redirect(url_for('scenes.index'))
+
+
+def get_post(id, check_author=True):
+    scene = get_db().execute(
+        'SELECT s.id, title, body, created, user_id, username'
+        ' FROM scene s JOIN user u ON s.user_id = u.id'
+        ' WHERE s.id = ?',
+        (id,)
+    ).fetchone()
+
+    if scene is None:
+        abort(404, f"Scene id {id} doesn't exist.")
+
+    if check_author and scene['user_id'] != g.user['id']:
+        abort(403)
+
+    return scene

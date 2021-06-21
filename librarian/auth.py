@@ -52,9 +52,9 @@ def login():
         ).fetchone()
 
         if user is None:
-            error = 'Incorrect username.'
+            error = 'Špatné údaje.'
         elif not check_password_hash(user['password'], password):
-            error = 'Incorrect password.'
+            error = 'Špatné údaje.'
 
         if error is None:
             session.clear()

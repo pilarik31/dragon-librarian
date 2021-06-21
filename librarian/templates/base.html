@@ -5,10 +5,9 @@
     <title>{% block title %}{% endblock %} - Librarian</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
-    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 </head>
 
-<body>
+<body class="antialiased">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-2 col-md-2 sidebar">
@@ -41,6 +40,8 @@
             </div>
         </div>
     </div>
+
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
 </body>
 
 </html>

@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Scenes{% endblock %}</h1>
+  <h1>{% block title %}Scény{% endblock %}</h1>
   {% if g.user %}
-    <a class="action" href="{{ url_for('scenes.create') }}">New</a>
+    <a class="action" href="{{ url_for('scenes.create') }}">Vytvořit</a>
   {% endif %}
 {% endblock %}
 
@@ -13,10 +13,10 @@
       <header>
         <div>
           <h1>{{ scene['title'] }}</h1>
-          <div class="about">by {{ scene['username'] }} on {{ scene['created'].strftime('%Y-%m-%d') }}</div>
+          <div class="about">zapsal {{ scene['username'] }} v {{ scene['created'].strftime('%Y-%m-%d') }}</div>
         </div>
         {% if g.user['id'] == scene['user_id'] %}
-          <a class="action" href="{{ url_for('scenes.update', id=scene['id']) }}">Edit</a>
+          <a class="action" href="{{ url_for('scenes.update', id=scene['id']) }}">Upravit</a>
         {% endif %}
       </header>
       <p class="body">{{ scene['body'] }}</p>

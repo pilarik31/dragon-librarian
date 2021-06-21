@@ -1,0 +1,4 @@
+include librarian/schema.sql
+graft librarian/static
+graft librarian/templates
+global-exclude *.pyc

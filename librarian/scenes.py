@@ -8,6 +8,7 @@ from librarian.db import get_db
 
 bp = Blueprint('scenes', __name__)
 
+
 @bp.route('/')
 def index():
     db = get_db()
@@ -17,6 +18,7 @@ def index():
         ' ORDER BY created DESC'
     ).fetchall()
     return render_template('scenes/index.html', scenes=scenes)
+
 
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
@@ -60,6 +62,7 @@ def get_post(id, check_author=True):
 
     return scene
 
+
 @bp.route('/<int:id>/update', methods=('GET', 'POST'))
 @login_required
 def update(id):
@@ -86,6 +89,7 @@ def update(id):
             return redirect(url_for('scenes.index'))
 
     return render_template('scenes/update.html', scene=scene)
+
 
 @bp.route('/<int:id>/delete', methods=('POST',))
 @login_required

@@ -14,6 +14,27 @@
         <label for="body" class="form-label">Obsah</label>
         <textarea name="body" id="body" class="form-control" rows="10">{{ request.form['body'] }}</textarea>
     </div>
+    <div class="mb-3">
+        <label for="participants" class="form-label">Účastníci</label>
+        <input name="participants" id="participants" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="location" class="form-label">Lokace</label>
+        <input name="location" id="location" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label for="music" class="form-label">Hudba</label>
+        <input name="music" id="music" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="dramatic_poles" class="form-label">Dramatické póly</label>
+        <input name="dramatic_poles" id="dramatic_poles" class="form-control">
+    </div>
+    <div class="mb-3">
+        <label for="emotional_requests" class="form-label">Emoční požadavky</label>
+        <input name="emotional_requests" id="emotional_requests" class="form-control">
+    </div>
     <input type="submit" value="Uložit" class="btn btn-success">
+
 </form>
 {% endblock %}

@@ -15,7 +15,7 @@ bp = Blueprint('scenes', __name__)
 def index():
     db = get_db()
     scenes = db.execute(
-        'SELECT s.id, title, body, created, user_id, username'
+        'SELECT s.id, title, body, created, user_id, username, participants, location, music, dramatic_poles, emotional_requests'
         ' FROM scene s JOIN user u ON s.user_id = u.id'
         ' ORDER BY created DESC'
     ).fetchall()
@@ -28,6 +28,11 @@ def create():
     if request.method == 'POST':
         title = request.form['title']
         body = request.form['body']
+        participants = request.form['participants']
+        location = request.form['location']
+        music = request.form['music']
+        dramatic_poles = request.form['dramatic_poles']
+        emotional_requests = request.form['emotional_requests']
         error = None
 
         if not title:
@@ -38,9 +43,9 @@ def create():
         else:
             db = get_db()
             db.execute(
-                'INSERT INTO scene (title, body, user_id)'
-                ' VALUES (?, ?, ?)',
-                (title, body, g.user['id'])
+                'INSERT INTO scene (title, body, user_id, participants, location, music, dramatic_poles, emotional_requests)'
+                ' VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+                (title, body, g.user['id'], participants, location, music, dramatic_poles, emotional_requests)
             )
             db.commit()
             return redirect(url_for('scenes.index'))
@@ -56,6 +61,11 @@ def update(id):
     if request.method == 'POST':
         title = request.form['title']
         body = request.form['body']
+        participants = request.form['participants']
+        location = request.form['location']
+        music = request.form['music']
+        dramatic_poles = request.form['dramatic_poles']
+        emotional_requests = request.form['emotional_requests']
         error = None
 
         if not title:
@@ -66,9 +76,10 @@ def update(id):
         else:
             db = get_db()
             db.execute(
-                'UPDATE scene SET title = ?, body = ?'
+                'UPDATE scene SET title = ?, body = ?, participants = ?, '
+                'location = ?, music = ?, dramatic_poles = ?, emotional_requests = ?'
                 ' WHERE id = ?',
-                (title, body, id)
+                (title, body, participants, location, music, dramatic_poles, emotional_requests, id)
             )
             db.commit()
             return redirect(url_for('scenes.index'))
@@ -88,7 +99,7 @@ def delete(id):
 
 def get_post(id, check_author=True):
     scene = get_db().execute(
-        'SELECT s.id, title, body, created, user_id, username'
+        'SELECT s.id, title, body, created, user_id, username, participants, location, music, dramatic_poles, emotional_requests'
         ' FROM scene s JOIN user u ON s.user_id = u.id'
         ' WHERE s.id = ?',
         (id,)

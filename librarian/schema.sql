@@ -13,5 +13,11 @@ CREATE TABLE scene (
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   title TEXT NOT NULL,
   body TEXT NOT NULL,
+  participants TEXT NOT NULL,
+  location TEXT NOT NULL,
+  music TEXT,
+  dramatic_poles TEXT,
+  emotional_requests TEXT,
+
   FOREIGN KEY (user_id) REFERENCES user (id)
 );
